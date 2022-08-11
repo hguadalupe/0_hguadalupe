@@ -1,0 +1,11 @@
+- 👋 Hi, I’m @hguadalupe
+- Master Degree in Architecture and Data Science. Informational enthusiast and eternal coding learner.   
+- 
+- 👀 I’m interested in ...
+- Huge Data Bases cleaning and management and making them useful and profitable.
+- 
+- 🌱 I’m currently learning ...
+- AWS for ML processing and DB Managing with SQL. 
+- 
+- 📫 How to reach me ...
+- vierohernandez@gmail.com
