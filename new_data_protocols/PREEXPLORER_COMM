@@ -1,0 +1,21 @@
+#HERRAMIENTAS BÁSICAS DE PREEXPLORACIÓN DE DATOS
+
+#Visualiza características importantes del archivo
+csvstat -d "^" RUTA | less
+
+#Examina columnas y tipos de datos de la BD
+csvsql -d "^" RUTA.csv
+
+#Visualizar contenidos de manera ordenada
+csvlook -d "^" RUTA | less -s
+
+#Selecciona líneas de manera pormenorizada
+csvgrep -d "^" -c(Number/Name Column) -m ¿"Palabra"? RUTA | WC/HEAD/less -s
+
+#Selecciona y visualiza una columna
+csvcut -d "^" -c(Number/Name Column) RUTA | head
+
+
+
+
+
