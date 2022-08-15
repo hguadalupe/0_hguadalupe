@@ -16,7 +16,13 @@ parse_git_branch() {
 
 export PS1="\033[35m\]\d \t\[\033[m\] - \[\033[36m\]\u\[\033[m\] \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\] \n >> "
 
+# make cursor visible
+tput cnorm 
+echo -ne "\e]12;green\a"
+
 ###Run and shut down commands for Anaconda and Jupyter.
 alias jn='conda activate; jupyter notebook'
 alias jnout='conda deactivate'
+
+
 
