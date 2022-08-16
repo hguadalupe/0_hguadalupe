@@ -1,7 +1,7 @@
 #BASIC CSVKIT FOR 
 
 #Columns important statistics
-csvstat -d "^" RUTA | less
+csvstat RUTA
 
 #Examina columnas y tipos de datos de la BD
 csvsql -d "^" RUTA.csv
