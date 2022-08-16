@@ -23,8 +23,10 @@ echo -ne "\e]12;green\a"
 ###Run and shut down commands for Anaconda and Jupyter.
 alias jn='conda activate; jupyter notebook'
 alias jnout='conda deactivate'
+alias gitaddmit='git add .; git commit'
 
----------------------------------
+--------------------------------- 
+
 #BASIC packages
-#Postgres, Anaconda, Jupyter, Csvstat, pipinstall, csvkit
+#Postgres, Anaconda, Jupyter, pipinstall, csvkit
 

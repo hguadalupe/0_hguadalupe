@@ -2,21 +2,33 @@
 
 #Columns important statistics
 csvstat RUTA
+csvstat RUTA --type
+csvstat RUTA --count
 
 #Examina columnas y tipos de datos de la BD
 csvsql -d "^" RUTA.csv
 
-#Visualizar contenidos de manera ordenada
-csvlook -d "^" RUTA | less -s
+#Have a look to 21 rows separated by "^"
+csvlook -d "^" RUTA | head -n 21 
+
+#Have a look to 21 rows and some columns (comma separated)
+csvcut -c 1,3,2,6,8,4 RUTA | head -n 21 | csvlook
+
+#Have a refined look with a SQL query:
+csvsql --query "SELECT * FROM filename_no_extension WHERE somecolumn > 10 ;" RUTA | head -20 | csvlook
+csvsql --query "SELECT somecol_1,somecol2 FROM filename_no_extension WHERE somecolumn > 10 ;" RUTA | head -20 | csvlook
+
+#Load the first/last 21 rows and some columns (comma separated and whatever order you want)
+csvcut -c 1,3,2,6,8,4 RUTA | head/tail -n 21 > new.csv
 
 #Selecciona líneas de manera pormenorizada
-csvgrep -d "^" -c(Number/Name Column) -m "StringPattern" RUTA | WC/HEAD/less -s
+csvgrep -d "^" -c(Number/Name Column) -m "StringPattern" RUTA | head -n 40 | csvlook
 
 #Selecciona y visualiza una columna
 csvcut -d "^" -c(Number/Name Column) RUTA | head
 
 #Query with SQL
-csvsql --query "select name from data where age > 30" data.csv > new.csv
+csvsql --query "select name from data where age > 30;" data.csv > new.csv
 
 #Query SQL 2 files to join them
 csvsql --query "select m.usda_id, avg(i.sepal_length) as mean_sepal_length from iris as i join irismeta as m on (i.species = m.species) group by m.species" examples/iris.csv examples/irismeta.csv
@@ -31,7 +43,7 @@ in2csv data.xls > data.csv
 in2csv data.json > data.csv
 
 #Excel to CSV
-in2csv file1.xls > file1.csv
+in2csv filcscse1.xls > file1.csv
 in2csv file2.xlsx > file2.csv
 
 #Conquer fixed-width formats
