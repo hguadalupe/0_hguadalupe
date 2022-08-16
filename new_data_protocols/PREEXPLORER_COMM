@@ -1,6 +1,6 @@
-#HERRAMIENTAS BÁSICAS DE PREEXPLORACIÓN DE DATOS
+#BASIC CSVKIT FOR 
 
-#Visualiza características importantes del archivo
+#Columns important statistics
 csvstat -d "^" RUTA | less
 
 #Examina columnas y tipos de datos de la BD
@@ -10,12 +10,36 @@ csvsql -d "^" RUTA.csv
 csvlook -d "^" RUTA | less -s
 
 #Selecciona líneas de manera pormenorizada
-csvgrep -d "^" -c(Number/Name Column) -m ¿"Palabra"? RUTA | WC/HEAD/less -s
+csvgrep -d "^" -c(Number/Name Column) -m "StringPattern" RUTA | WC/HEAD/less -s
 
 #Selecciona y visualiza una columna
 csvcut -d "^" -c(Number/Name Column) RUTA | head
 
+#Query with SQL
+csvsql --query "select name from data where age > 30" data.csv > new.csv
 
+#Query SQL 2 files to join them
+csvsql --query "select m.usda_id, avg(i.sepal_length) as mean_sepal_length from iris as i join irismeta as m on (i.species = m.species) group by m.species" examples/iris.csv examples/irismeta.csv
+
+#Find rows with matching cells and createn new csv:
+csvgrep -c phone_number -r "555-555-\d{4}" data.csv > new.csv
+
+#Convert Excel to CSV:
+in2csv data.xls > data.csv
+
+#Convert JSON to CSV:
+in2csv data.json > data.csv
+
+#Excel to CSV
+in2csv file1.xls > file1.csv
+in2csv file2.xlsx > file2.csv
+
+#Conquer fixed-width formats
+in2csv -f fixed -s schema.csv data.fixed > data.csv
+
+#Automatically create a SQL table and import a CSV into a database
+createdb demographics
+csvsql --db postgresql:///demographics --insert data.csv
 
 
 

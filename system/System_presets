@@ -24,5 +24,7 @@ echo -ne "\e]12;green\a"
 alias jn='conda activate; jupyter notebook'
 alias jnout='conda deactivate'
 
-
+---------------------------------
+#BASIC packages
+#Postgres, Anaconda, Jupyter, Csvstat, pipinstall, csvkit
 
