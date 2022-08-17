@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv (r'csvfile.csv')
+df.describe()
+
+#Reshaping Data (google melt and pivotable functions).
+pd.melt(df)  #Gather columns into rows.
+df.pivot(columns='var', values='val')  #Spread rows into columns.
+pd.concat([df1,df2])  #Append rows of DataFrames
+pd.concat([df1,df2], axis=1)  #Append columns of DataFrames
+df2=(df.replace(to_replace =["m","f","014","65","u"],value =["Male","Female","0-14","65+","unknown"])
+            .dropna())           # Creaning and tyling the dataset                         
+
+#Subset Observations (rows)
+df[df.Length > 7] #Extract rows that meet logical criteria.
+df.drop_duplicates()  #Remove duplicate rows (only considers columns).
+df.iloc[10:20]  #Select rows by position.
+df.nlargest(n, 'value')  #Select and order top n entries.
+df.nsmallest(n, 'value')  #Select and order bottom n entries.
+
+#Subset Observations (columns)
+df.plot.hist(column=["column"])  #Plots a graph with the distributions of values of a column.
+
+df[['width','length','species']]  #Select multiple columns with specific names.
+df['width'] or df.width  #Select single column with specific name.
+df.filter(regex='regex')   #Select columns whose name matches regular expression regex.
+
+df.loc[:,'x2':'x4']   #Select all columns between x2 and x4 (inclusive).
+df.iloc[:,[1,2,5]]   #Select columns in positions 1, 2 and 5 (first column is 0).
+df.loc[df['a'] > 10, ['a','c']]   #Select rows meeting logical condition, and only the specific columns .

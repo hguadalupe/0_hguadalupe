@@ -1,0 +1,30 @@
+#PYTHON + DATABASES
+
+from sqlalchemy import create_engine
+import pandas as pd
+
+#Create_engine genera un operador de Bases de datos relacionado 
+#(pero no conectado) con la base de datos en cuestión. Si ponemos 'sqlite' 
+#al principio ese será el lenguaje de análisis de DB.
+
+engine = create_engine('sqlite:///MyDataBase')
+
+#Es conveniente conectarse a la base de datos sólo para dar instrucciones
+#y luego volver a desconectarse. Con este método 'with' se desconectará 
+#automáticamente al terminar.
+
+with engine.connect() as con:
+    rs = con.execute("SELECT OrderID, OrderDate, ShipName FROM Orders")
+    df = pd.DataFrame(rs.fetchmany(size=5))   #Número de registros(filas) a cargar.
+    df.columns = rs.keys()                    #Pone nombre a las columnas.
+	
+# *Otros métodos de 'engine' son 'engine.table_names()' que muestra las tablas contenidas. 
+#Otros métodos de 'engine.connect()' son '.execute(SELECT Columna1, Columna2, Columna3 FROM myDataBase) 
+#create_engine()
+#create_engine.table_names()
+#create_engine.connect()
+#create_engine.connect.execute()
+#create_engine.connect.execute.keys()
+#create_engine.connect.execute.fetchall()
+#create_engine.connect.execute.fetchmany() 	
+
