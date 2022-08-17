@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv (r'csvfile.csv')
-df.describe()
+
 
 #Reshaping Data (google melt and pivotable functions).
 pd.melt(df)  #Gather columns into rows.
@@ -29,3 +29,16 @@ df.filter(regex='regex')   #Select columns whose name matches regular expression
 df.loc[:,'x2':'x4']   #Select all columns between x2 and x4 (inclusive).
 df.iloc[:,[1,2,5]]   #Select columns in positions 1, 2 and 5 (first column is 0).
 df.loc[df['a'] > 10, ['a','c']]   #Select rows meeting logical condition, and only the specific columns .
+
+#One Hot Encoding (OHE), boolean-mask your categorical columns, and boolean-label your float-columns with threshold depending in your knowledge for better processing.
+#Mask each category in one column:
+list(np.unique(df["categorical_col"]))
+df_ohecat1=[1 if n =="cat1" else 0 for n in df["categorical_col"]]
+#Floats:
+def divide(x):
+    return np.divide(x['weeks_delay'],x['weeks_duration'])
+delays = pd.DataFrame()
+delays = df.apply(divide,axis=1) #axis 1 applies the function to the columns.
+df_ohe["DELAYED"] = [1 if n > 0.2  else 0 for n in delays]  #creates a new boolean column checking with de "divide" function if it is "delayed" or not.
+
+
