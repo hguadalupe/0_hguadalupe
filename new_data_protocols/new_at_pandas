@@ -1,8 +1,15 @@
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 
 df = pd.read_csv (r'csvfile.csv')
+col_names =list(df)
+df
 
+#Basic exploration:
+titanic[["Age", "Fare"]].describe()   #basic stats by column.
+df.plot.hist(column=["column"])  # HISTOGRAM. Plots a graph with the distributions of values of a column (only for numerical and datetime type of data).
+df['column'].value_counts().plot(kind='bar') #HISTOGRAM. Plots a graph with the distributions of values of a column (for categorical type of data).
 
 #Reshaping Data (google melt and pivotable functions).
 pd.melt(df)  #Gather columns into rows.
@@ -20,8 +27,6 @@ df.nlargest(n, 'value')  #Select and order top n entries.
 df.nsmallest(n, 'value')  #Select and order bottom n entries.
 
 #Subset Observations (columns)
-df.plot.hist(column=["column"])  #Plots a graph with the distributions of values of a column.
-
 df[['width','length','species']]  #Select multiple columns with specific names.
 df['width'] or df.width  #Select single column with specific name.
 df.filter(regex='regex')   #Select columns whose name matches regular expression regex.

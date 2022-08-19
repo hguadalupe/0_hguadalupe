@@ -1,3 +1,7 @@
+
+#BASIC packages
+#Postgres, Anaconda, Jupyter, pipinstall, csvkit, Spark , Pyspark.
+
 ----------------------------------------------------------------
 # Setting GITHUB remote connection:
 ## Appart from every instruction given by github, before you add/commit any file to an existing repository from your terminal, set the remote "origin":
@@ -33,7 +37,14 @@ alias jnout='conda deactivate'
 alias gitaddmit='git add .; git commit'
 
 --------------------------------- 
+#PYSPARK Route config
+#open .bash_profile and paste this:
 
-#BASIC packages
-#Postgres, Anaconda, Jupyter, pipinstall, csvkit
+export SPARK_HOME="/your/home/directory/spark/python"
+export PATH="$SPARK_HOME/bin:$PATH"
+
+#then change your route of installation to your current spark_python route.
+
+
+---------------
 
