@@ -2,3 +2,51 @@
 
 import findspark
 findspark.init()
+
+-----------Cleaning----------
+from pyspark.sql.functions import isnull, when, count, col
+
+#Count and show how many "isnull" are per column
+dataset.select([count(when(isnull(c), c)).alias(c) for c in dataset.columns]).show()
+
+#Drop every row with missing values.
+dataset = dataset.replace('null', None)\
+        .dropna(how='any')
+
+
+                         
+----------Change data types----------------
+from pyspark.sql.functions import col
+from pyspark.ml.feature import StringIndexer
+
+
+# Batch change of type of Data per column:
+df_good_types = df.select(col('Column_1').cast('float'),
+                         col('Column_2').cast('float'), ...)
+                         
+# Batch change of categories (categorical columns), from categories to integers:
+dataset = StringIndexer(
+    inputCol='Gender', 
+    outputCol='GenderIndex', 
+    handleInvalid='keep').fit(dataset).transform(dataset)
+
+# Batch Category-to-Number transformation with One Hot Encoding, for not-quantitative variables:
+dataset = StringIndexer(
+    inputCol='Geography', 
+    outputCol='GeographyNum', 
+    handleInvalid='keep').fit(dataset).transform(dataset)
+
+dataset = OneHotEncoder(
+    inputCol='GeographyNum', 
+    outputCol='GeographyIndex', 
+    handleInvalid='keep').fit(dataset).transform(dataset)
+                    
+---------MachineLearning_Presets--------------
+# Assemble all the features with VectorAssembler. Take all input features, all the columns but the one you are trying to gess:
+
+required_features = ['Column_1','Column_2',...]
+
+from pyspark.ml.feature import VectorAssembler
+assembler = VectorAssembler(inputCols=required_features, outputCol='features')
+transformed_data = assembler.transform(dataset)
+

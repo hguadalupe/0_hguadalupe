@@ -3,8 +3,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 df = pd.read_csv (r'csvfile.csv')
-col_names =list(df)
 df
+
+col_names =list(df)
+df.describe().toPandas()
+
+print(col_names)
 
 #Basic exploration:
 titanic[["Age", "Fare"]].describe()   #basic stats by column.
