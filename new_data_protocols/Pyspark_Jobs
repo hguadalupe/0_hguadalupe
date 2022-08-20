@@ -1,0 +1,4 @@
+#Symply Pyspark:
+
+import findspark
+findspark.init()

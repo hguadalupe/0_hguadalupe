@@ -1,6 +1,6 @@
 
 #BASIC packages
-#Postgres, Anaconda, Jupyter, pipinstall, csvkit, Spark , Pyspark.
+#Postgres, Anaconda, Jupyter, pipinstall, csvkit, Spark , Pyspark, findspark.
 
 ----------------------------------------------------------------
 # Setting GITHUB remote connection:
@@ -47,4 +47,10 @@ export PATH="$SPARK_HOME/bin:$PATH"
 
 
 ---------------
+#Install findspark in JN. Open JUPYTER NOTEBOOK and type this (with "!" at the beginning):
 
+!pip install findspark
+
+#Now it should work in your jupyter notebook like this:
+import findspark
+findspark.init()
