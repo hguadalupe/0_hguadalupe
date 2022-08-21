@@ -53,4 +53,4 @@ export PATH="$SPARK_HOME/bin:$PATH"
 
 #Now it should work in your jupyter notebook like this:
 import findspark
-findspark.init()
+findspark.init('/home/vieroh/apps/spark-3.3.0-bin-hadoop3-scala2.13') #here your spark rute.

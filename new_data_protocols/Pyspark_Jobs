@@ -1,7 +1,16 @@
 #Symply Pyspark:
 
 import findspark
-findspark.init()
+findspark.init('/home/vieroh/apps/spark-3.3.0-bin-hadoop3-scala2.13') #Here your spark rute.
+
+from pyspark.context import SparkContext
+from pyspark.sql.session import SparkSession
+sc = SparkContext.getOrCreate()
+spark = SparkSession(sc)
+df = (spark.read
+          .format("csv")
+          .option('header', 'true')
+          .load("YOUR.csv"))
 
 -----------Cleaning----------
 from pyspark.sql.functions import isnull, when, count, col

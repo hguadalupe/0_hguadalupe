@@ -12,8 +12,10 @@ print(col_names)
 
 #Basic exploration:
 titanic[["Age", "Fare"]].describe()   #basic stats by column.
-df.plot.hist(column=["column"])  # HISTOGRAM. Plots a graph with the distributions of values of a column (only for numerical and datetime type of data).
-df['column'].value_counts().plot(kind='bar') #HISTOGRAM. Plots a graph with the distributions of values of a column (for categorical type of data).
+df.plot.hist(column=["column"])  # HISTOGRAM. Plots a graph with the distributions of values 				 
+		of a column (only for numerical and datetime type of data).
+df['column'].value_counts().plot(kind='bar') #HISTOGRAM. Plots a graph with the distributions 
+		of values of a column (for categorical type of data).
 
 #Reshaping Data (google melt and pivotable functions).
 pd.melt(df)  #Gather columns into rows.
