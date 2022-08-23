@@ -11,6 +11,8 @@ df = (spark.read
           .format("csv")
           .option('header', 'true')
           .load("YOUR.csv"))
+          
+print((df.count(), len(df.columns))) #Shape.
 
 -----------Cleaning----------
 from pyspark.sql.functions import isnull, when, count, col
@@ -18,16 +20,21 @@ from pyspark.sql.functions import isnull, when, count, col
 #Count and show how many "isnull" are per column
 dataset.select([count(when(isnull(c), c)).alias(c) for c in dataset.columns]).show()
 
-#Drop every row with missing values.
+#Drop every row with missing values (careful, you could end with no rows at all).
 dataset = dataset.replace('null', None)\
         .dropna(how='any')
 
 
+
                          
-----------Change data types----------------
+----------Batch value changing----------------
 from pyspark.sql.functions import col
 from pyspark.ml.feature import StringIndexer
 
+#Nulls and replacing values
+>>> df.na.fill(50).show() #Replace null values
+>>> df.na.drop().show() #Return new df omitting rows with null values
+>>> df.na.replace(10, 20).show()   #Return new df replacing one value with another
 
 # Batch change of type of Data per column:
 df_good_types = df.select(col('Column_1').cast('float'),
@@ -49,7 +56,33 @@ dataset = OneHotEncoder(
     inputCol='GeographyNum', 
     outputCol='GeographyIndex', 
     handleInvalid='keep').fit(dataset).transform(dataset)
-                    
+       
+       
+# Specific value changing by column and conditions (with Lists and "when")
+
+from pyspark.sql.functions import col, when
+
+x = ['ValA','ValB','ValF']
+y = ['ValM','ValR']
+z = ['ValP','ValS']
+
+df = df.withColumn('newColumn', when(col('newColumn').isin(x), "x")\
+                  .otherwise(when(col('newColumn').isin(y), "y")\
+                  .otherwise(when(col('newColumn').isin(z), "z")\
+                  .otherwise(df.newColumn))))
+
+# Specific value changing by column and conditions (with Dicts and Functions)
+
+from pyspark.sql import functions as F
+
+replacement = {
+    "LB": "x", "LWB": "x", "LF": "x",
+    "RF": "y", "LCM": "y",
+    "LM": "z", "RS": "z"
+}
+
+df1 = df.replace(replacement, ["colC"]).withColumn("colB", F.round("colB", 1))
+
 ---------MachineLearning_Presets--------------
 # Assemble all the features with VectorAssembler. Take all input features, all the columns but the one you are trying to gess:
 

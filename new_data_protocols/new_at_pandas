@@ -25,6 +25,11 @@ pd.concat([df1,df2], axis=1)  #Append columns of DataFrames
 df2=(df.replace(to_replace =["m","f","014","65","u"],value =["Male","Female","0-14","65+","unknown"])
             .dropna())           # Creaning and tyling the dataset                         
 
+#Change the values of specific filtered rows:
+df.loc[selection criteria, columns I want] = value
+#example
+df.loc[df.A==0, 'B'] = df.loc[df.A==0, 'B'] / 2
+
 #Subset Observations (rows)
 df[df.Length > 7] #Extract rows that meet logical criteria.
 df.drop_duplicates()  #Remove duplicate rows (only considers columns).
